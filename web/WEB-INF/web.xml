@@ -15,6 +15,12 @@
         </servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>checker2</servlet-name>
+        <servlet-class>
+            com.example.web.check2
+        </servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>login</servlet-name>
         <servlet-class>
             com.example.web.login
@@ -30,7 +36,10 @@
         <servlet-name>checker</servlet-name>
         <url-pattern>/ch.do</url-pattern>
     </servlet-mapping>
-
+<servlet-mapping>
+        <servlet-name>checker2</servlet-name>
+        <url-pattern>/ch2.do</url-pattern>
+    </servlet-mapping>
 
     
 </web-app>

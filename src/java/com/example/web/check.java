@@ -6,6 +6,7 @@
 package com.example.web;
 
 import com.example.model.YoutubeId;
+import com.example.model.SpotifyToken;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.net.*;
@@ -94,14 +95,18 @@ public class check extends HttpServlet {
             String artist1 = (String) oneart1.get("name");
             String naming1 = (String) each.get("name");
             String getid = id.getVid(naming1, artist1);
-
             
-          //S  Cookie cookie = 
+            String SpotId = (String) each.get("id");
+
+            SpotifyToken st = new SpotifyToken();
+            String access_token = st.getAuth();
             
             
             request.setAttribute("naming", naming1);
             request.setAttribute("artist", artist1);
             request.setAttribute("vid", getid);
+            request.setAttribute("spotid", SpotId);
+            request.setAttribute("acc_tok", access_token);
 
             RequestDispatcher view = request.getRequestDispatcher("view.jsp");
             view.forward(request, response);
