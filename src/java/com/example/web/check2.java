@@ -5,10 +5,13 @@
  */
 package com.example.web;
 
+import com.example.model.FindSimilars;
+
 import org.apache.commons.codec.binary.Base64;
 
 import com.example.model.YoutubeId;
 import com.example.model.SpotifyToken;
+import java.lang.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.net.*;
@@ -41,7 +44,7 @@ public class check2 extends HttpServlet {
         HttpSession session = request.getSession();
         String recvbuff = new String();
         PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
+        response.setContentType("text/html");
         //response.setContentType("text/html");
         
         //PrintWriter out = response.getWriter();
@@ -77,24 +80,38 @@ public class check2 extends HttpServlet {
             JSONObject json = (JSONObject) parser.parse(new StringReader(test));
 
             out.println(json);
-            String speechiness,tempo,danceability,acousticness,liveness,valence,loudness,energy;
+            float speechiness,tempo,danceability,acousticness,liveness,valence,loudness,energy;
             
-            speechiness = (String)json.get("speechiness");
-            tempo = (String)json.get("tempo");
-            danceability = (String)json.get("danceability");
-            acousticness = (String)json.get("acousticness");
-            liveness = (String)json.get("liveness");
-            valence = (String)json.get("valence");
-            loudness = (String)json.get("loudness");
-            energy = (String)json.get("energy");
+            speechiness = ((Number)json.get("speechiness")).floatValue();
+            tempo = ((Number)json.get("tempo")).floatValue();
+            danceability = ((Number)json.get("danceability")).floatValue();
+            acousticness = ((Number)json.get("acousticness")).floatValue();
+            liveness = ((Number)json.get("liveness")).floatValue();
+            valence = ((Number)json.get("valence")).floatValue();
+            loudness = ((Number)json.get("loudness")).floatValue();
+            energy = ((Number)json.get("energy")).floatValue();
+            
+            float[] features ={speechiness , tempo , danceability , acousticness , liveness, valence, loudness,energy};
+            
+           //out.print("<br>"+Arrays.toString(features)+"<br>");
             
             
+            FindSimilars fs = new FindSimilars();
+            
+          
+            String[] simtracks = fs.getSim(access_token,id,features);
+            out.println("<br>");
+            out.println(Arrays.toString(simtracks));
+      
+            
+            
+        }catch(Exception e){
+            
+        }
             
             
    
 
-        } catch (Exception e) {
 
-        }
     }
 }

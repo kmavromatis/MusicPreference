@@ -12,13 +12,17 @@
         <servlet-name>checker</servlet-name>
         <servlet-class>
             com.example.web.check
+                
         </servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>checker2</servlet-name>
         <servlet-class>
             com.example.web.check2
+               
         </servlet-class>
+        <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>login</servlet-name>
