@@ -74,7 +74,7 @@ public class check extends HttpServlet {
 
             JSONArray itemArr = (JSONArray) tracks.get("items");
 
-            for (int i = 0; i < itemArr.size(); i++) {
+           /* for (int i = 0; i < itemArr.size(); i++) {
                 JSONObject each = (JSONObject) itemArr.get(i);
                 JSONArray art = (JSONArray) each.get("artists");
                 JSONObject oneart = (JSONObject) art.get(0);
@@ -88,7 +88,7 @@ public class check extends HttpServlet {
                 String getid = id.getVid(naming, artist);
                 out.print(getid);
                 out.print("<br>");
-            }
+            }*/
             JSONObject each = (JSONObject) itemArr.get(0);
             JSONArray art1 = (JSONArray) each.get("artists");
             JSONObject oneart1 = (JSONObject) art1.get(0);

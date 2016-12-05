@@ -138,7 +138,11 @@ public class FindSimilars {
             //out.println(json);
             JSONArray tracks = (JSONArray) json.get("tracks");
             
-            String[] simtracks =new String[5];
+           
+            String[] simtracks =new String[ tracks.size() ];
+            
+            
+            
             for (int i = 0; i < tracks.size(); i++) {
                 JSONObject onetrack = (JSONObject) tracks.get(i);
                 JSONArray artists = (JSONArray) onetrack.get("artists");
@@ -146,7 +150,7 @@ public class FindSimilars {
                 String artist = (String) oneart.get("name");
                 String naming = (String) onetrack.get("name");
                // out.println("new"+artist+"----"+naming);
-               simtracks[i] = naming+" "+"("+artist+")";
+               simtracks[i] = naming+" "+artist;
 
             }
             

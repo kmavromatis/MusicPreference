@@ -32,6 +32,52 @@ import org.json.simple.parser.Yytoken;
 
 public class YoutubeId {
     
+    public String getVidbyTitle(String title) throws IOException{
+        title = title.replaceAll(" ", "+");
+        
+        String api_key="AIzaSyAN2coT_R79AkUhb9SlOd18c9W6wToVRyw";
+        String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key="+api_key+"&q="+title+"&type=video&videoEmbeddable=true";
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        
+        
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response2 = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response2.append(inputLine);
+        }
+        in.close();
+
+        //print result
+       
+        JSONParser parser = new JSONParser();
+
+        String test = response2.toString();
+        try {
+            JSONObject json = (JSONObject) parser.parse(new StringReader(test));
+            
+            //out.println(json);
+            
+            
+           // JSONObject tracks =(JSONObject) json.get("");
+            //JSONObject items = tracks.getJSONObject("items");
+            
+            JSONArray itemArr = (JSONArray)json.get("items");
+            JSONObject each = (JSONObject) itemArr.get(0);
+            JSONObject jid = (JSONObject) each.get("id");
+            String vid = (String)jid.get("videoId");
+             return vid;
+           } catch (Exception ex) {
+
+        }
+       return url;
+     
+    }
+    
     public String getVid(String id, String artist) throws IOException{
         id = id.replaceAll(" ", "+");
         artist = artist.replaceAll(" ","+");

@@ -79,7 +79,7 @@ public class check2 extends HttpServlet {
         try {
             JSONObject json = (JSONObject) parser.parse(new StringReader(test));
 
-            out.println(json);
+           // out.println(json);
             float speechiness,tempo,danceability,acousticness,liveness,valence,loudness,energy;
             
             speechiness = ((Number)json.get("speechiness")).floatValue();
@@ -102,6 +102,22 @@ public class check2 extends HttpServlet {
             String[] simtracks = fs.getSim(access_token,id,features);
             out.println("<br>");
             out.println(Arrays.toString(simtracks));
+            
+            String[] simyoutubes = new String [ simtracks.length ];
+            
+            
+            YoutubeId allsimid = new YoutubeId();
+            for(int j =0; j<simtracks.length; j++){
+                simyoutubes[j] = "\"" + "https://www.youtube.com/embed/" + allsimid.getVidbyTitle(simtracks[j]) +"\"";
+                
+                
+                
+            }
+            
+            request.setAttribute("simtracks", simtracks);
+            request.setAttribute("simyoutubes", simyoutubes);
+            RequestDispatcher view = request.getRequestDispatcher("similartracks.jsp");
+            view.forward(request, response);
       
             
             
