@@ -46,6 +46,7 @@
                                     //document.write("ID: " + profile.getId() +"\n"+"Name: " + profile.getName()+"\n"+"Email: " + profile.getEmail());
                                     alert("Name: " + profile.getName() + "\n" + "Email: " + profile.getEmail());
                                     // w=window.open;
+                                    document.getElementById("user").innerHTML = "Hello,"+profile.getName();
                                 }
 
 
@@ -67,7 +68,7 @@
                                             <div class="indent">
                                                 <div class="indent1">
                                                     <h2>Welcome to Our Music Site!</h2>
-
+                                                    <h3 id="user"> </h3>
                                                     <form method="get" action="ch.do">
 
 
