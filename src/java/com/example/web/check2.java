@@ -6,6 +6,8 @@
 package com.example.web;
 
 import com.example.model.FindSimilars;
+import com.example.model.Database;
+import com.example.model.SpotifyToken;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -38,6 +40,10 @@ public class check2 extends HttpServlet {
 
         String id = request.getParameter("id");
         String access_token = request.getParameter("access_token");
+        String image = request.getParameter("image");
+        
+         SpotifyToken st =new SpotifyToken();
+            access_token=st.getAuth();
 
         String recv;
 
@@ -98,14 +104,15 @@ public class check2 extends HttpServlet {
             
             FindSimilars fs = new FindSimilars();
             
-          
+            
+           
             String[] simtracks = fs.getSim(access_token,id,features);
             out.println("<br>");
             out.println(Arrays.toString(simtracks));
             
             String[] simyoutubes = new String [ simtracks.length ];
             
-            
+            String[] songs=new String[simtracks.length];
             YoutubeId allsimid = new YoutubeId();
             for(int j =0; j<simtracks.length; j++){
                 simyoutubes[j] = "\"" + "https://www.youtube.com/embed/" + allsimid.getVidbyTitle(simtracks[j]) +"\"";
@@ -113,9 +120,17 @@ public class check2 extends HttpServlet {
                 
                 
             }
-            
-            request.setAttribute("simtracks", simtracks);
+            int kena;
+            for(int j =0; j<simtracks.length; j++){
+                kena=simtracks[j].indexOf("   ");
+                songs[j]=simtracks[j].substring(0,kena);
+            }
+            request.setAttribute("spotid",id);
+            request.setAttribute("acc_tok",access_token);
+            request.setAttribute("simtracks", songs);
             request.setAttribute("simyoutubes", simyoutubes);
+            request.setAttribute("image", image);
+            request.setAttribute("myuserid", "guest");
             RequestDispatcher view = request.getRequestDispatcher("similartracks.jsp");
             view.forward(request, response);
       

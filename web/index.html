@@ -5,8 +5,9 @@
         <title>Music Preference</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="google-signin-client_id" content="800404509455-bshfcjmmg8ho82qkpaetmv21ummlvi50.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="800404509455-bshfcjmmg8ho82qkpaetmv21ummlvi50.apps.googleusercontent.com"/>
             <link href="styles/css.css" rel="stylesheet" type="text/css" />
+            <link rel="icon" href="http://www.edmsauce.com/wp-content/uploads/2014/06/sax.png"/>
             <!--[if lt IE 7]>
             <script type="text/javascript" src="js/ie_png.js"></script>
             <script type="text/javascript">ie_png.fix('.png');</script>
@@ -34,7 +35,9 @@
                         <ul class="log">
 
                             <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+                            
+                            
+                            
                             <script>
                                 function onSignIn(googleUser) {
                                     var profile = googleUser.getBasicProfile();
@@ -43,13 +46,18 @@
                                     console.log('Name: ' + profile.getName());
                                     console.log('Image URL: ' + profile.getImageUrl());
                                     console.log('Email: ' + profile.getEmail());
-                                    //document.write("ID: " + profile.getId() +"\n"+"Name: " + profile.getName()+"\n"+"Email: " + profile.getEmail());
-                                    alert("Name: " + profile.getName() + "\n" + "Email: " + profile.getEmail());
+                                   // document.write("ID: " + profile.getId() +"\n"+"Name: " + profile.getName()+"\n"+"Email: " + profile.getEmail());
+                                   alert("ID: "+profile.getId()+"\nName: " + profile.getName() + "\n" + "Email: " + profile.getEmail());
                                     // w=window.open;
+                                    
+                                    
+                                    document.getElemenetById("notguest").innerHTML = "Hello,"+profile.getName();
                                 }
 
-
+                                
                             </script>
+                            
+                                    
 
                             <form method="POST" action="login.do" >  
                                 <label><b>Username</b></label>
@@ -60,6 +68,15 @@
 
                                         <button type="submit">Login</button>
                                         </form>
+                            <form method="POST" action ="register.do">
+                                <label><b>Username</b></label>
+                                <input type="text" placeholder="Enter Username" name="user">
+
+                                    <label><b>Password</b></label>
+                                    <input type="password" placeholder="Enter Password" name="passwd" >
+
+                                        <button type="submit">Register</button>
+                                        </form>
                                         </ul>
                                         </div>
                                         <!-- content -->
@@ -67,21 +84,22 @@
                                             <div class="indent">
                                                 <div class="indent1">
                                                     <h2>Welcome to Our Music Site!</h2>
-
+                                                    <h3 id="notguest"></h3>
                                                     <form method="get" action="ch.do">
 
 
-                                                        <p> <input type="search" name="q" />
+                                                        <h3> <input type="search" name="q" />
                                                             <select name="type"size="1">
                                                                 <option>track</option>
                                                                 <option>artist</option>
                                                                 <option>album</option>
                                                             </select>
+                                                            
 
-                                                        </p>
+                                                        </h3>
 
                                                     </form>
-                                                   
+                                                    
 
                                                 </div>
 

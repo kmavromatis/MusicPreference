@@ -150,7 +150,7 @@ public class FindSimilars {
                 String artist = (String) oneart.get("name");
                 String naming = (String) onetrack.get("name");
                // out.println("new"+artist+"----"+naming);
-               simtracks[i] = naming+" "+artist;
+               simtracks[i] = naming+"   "+artist;
 
             }
             

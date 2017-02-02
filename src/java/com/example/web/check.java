@@ -7,6 +7,7 @@ package com.example.web;
 
 import com.example.model.YoutubeId;
 import com.example.model.SpotifyToken;
+import com.example.model.Database;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.net.*;
@@ -39,9 +40,13 @@ public class check extends HttpServlet {
         String recvbuff = new String();
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");
+        
         String q = request.getParameter("q");
+        int pavla=q.indexOf("-");
+        if(pavla !=-1) q=q.substring(0,pavla);
         q = q.replaceAll(" ", "+");
         String type = request.getParameter("type");
+        String myuserid = "guest";
         String url = "https://api.spotify.com/v1/search?q=" + q + "&type=" + type;
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -91,8 +96,12 @@ public class check extends HttpServlet {
             }*/
             JSONObject each = (JSONObject) itemArr.get(0);
             JSONArray art1 = (JSONArray) each.get("artists");
+            JSONObject alb = (JSONObject) each.get("album");
+            JSONArray im1 = (JSONArray) alb.get("images");
             JSONObject oneart1 = (JSONObject) art1.get(0);
+            JSONObject oneim1 = (JSONObject) im1.get(0);
             String artist1 = (String) oneart1.get("name");
+            String image1 = (String) oneim1.get("url");
             String naming1 = (String) each.get("name");
             String getid = id.getVid(naming1, artist1);
             
@@ -101,12 +110,19 @@ public class check extends HttpServlet {
             SpotifyToken st = new SpotifyToken();
             String access_token = st.getAuth();
             
+            String user =(String) session.getAttribute("usr");
+            if(user != null){
+            Database db = new Database();
+            db.insert(user,naming1+"-"+artist1);
+            }
             
             request.setAttribute("naming", naming1);
             request.setAttribute("artist", artist1);
             request.setAttribute("vid", getid);
             request.setAttribute("spotid", SpotId);
             request.setAttribute("acc_tok", access_token);
+            
+            request.setAttribute("image", image1);
 
             RequestDispatcher view = request.getRequestDispatcher("view.jsp");
             view.forward(request, response);

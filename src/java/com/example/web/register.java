@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.*;
 import com.example.model.LogDatabase;
 
-public class login extends HttpServlet {
+public class register extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,11 +26,10 @@ public class login extends HttpServlet {
         String passwd = request.getParameter("passwd");
         LogDatabase ld = new LogDatabase();
         try {
-            check = ld.search(user, passwd);
+            check = ld.insert(user, passwd);
         } catch (Exception e) {
         }
         if(check==true){ session.setAttribute("usr",user); }
-        
         
 
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
